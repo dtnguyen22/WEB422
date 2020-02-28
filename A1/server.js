@@ -3,7 +3,7 @@ const cors = require("cors");
 const bodyParser = require("body-parser");
 const dataService = require("./modules/data-service.js");
 
-const myData = dataService("Your MongoDB Connection String Goes Here");
+const myData = dataService("mongodb+srv://admin:admin@web422-qpz9x.mongodb.net/sample_supplies?retryWrites=true&w=majority");
 
 const app = express();
 
@@ -20,7 +20,9 @@ const HTTP_PORT = process.env.PORT || 8080;
 
 
 // GET /api/sales (NOTE: This route must accept the numeric query parameters "page" and "perPage", ie: /api/sales?page=1&perPage=5 )
-
+app.get("/api/sales", (req,res)=>{
+    
+});
 
 
 // GET /api/sales (NOTE: This route must accept a numeric route parameter, ie: /api/sales/5bd761dcae323e45a93ccfe8)
