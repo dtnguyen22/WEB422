@@ -1,6 +1,7 @@
 const mongoose = require("mongoose");
 const saleSchema = require("./saleSchema.js");
 
+
 module.exports = function(connectionString){
 
     let Sale;
@@ -20,6 +21,7 @@ module.exports = function(connectionString){
                 });
             });
         },
+
 
         addNewSale: function(data){
             return new Promise((resolve,reject)=>{
