@@ -1,20 +1,15 @@
-const saleData = [{"_id":{"$oid":"5bd761dcae323e45a93ccfe9"},"saleDate":{"$date":{"$numberLong":"1440496862918"}},"items":[{"name":"envelopes","tags":["stationary","office","general"],"price":{"$numberDecimal":"8.05"},"quantity":{"$numberInt":"10"}},{"name":"binder","tags":["school","general","organization"],"price":{"$numberDecimal":"28.31"},"quantity":{"$numberInt":"9"}},{"name":"notepad","tags":["office","writing","school"],"price":{"$numberDecimal":"20.95"},"quantity":{"$numberInt":"3"}},{"name":"laptop","tags":["electronics","school","office"],"price":{"$numberDecimal":"866.5"},"quantity":{"$numberInt":"4"}},{"name":"notepad","tags":["office","writing","school"],"price":{"$numberDecimal":"33.09"},"quantity":{"$numberInt":"4"}},{"name":"printer paper","tags":["office","stationary"],"price":{"$numberDecimal":"37.55"},"quantity":{"$numberInt":"1"}},{"name":"backpack","tags":["school","travel","kids"],"price":{"$numberDecimal":"83.28"},"quantity":{"$numberInt":"2"}},{"name":"pens","tags":["writing","office","school","stationary"],"price":{"$numberDecimal":"42.9"},"quantity":{"$numberInt":"4"}},{"name":"envelopes","tags":["stationary","office","general"],"price":{"$numberDecimal":"16.68"},"quantity":{"$numberInt":"2"}}],"storeLocation":"Seattle","customer":{"gender":"M","age":{"$numberInt":"50"},"email":"keecade@hem.uy","satisfaction":{"$numberInt":"5"}},"couponUsed":false,"purchaseMethod":"Phone"},
-{"_id":{"$oid":"5bd761dcae323e45a93ccff3"},"saleDate":{"$date":{"$numberLong":"1437533120727"}},"items":[{"name":"envelopes","tags":["stationary","office","general"],"price":{"$numberDecimal":"21.46"},"quantity":{"$numberInt":"5"}},{"name":"notepad","tags":["office","writing","school"],"price":{"$numberDecimal":"21.82"},"quantity":{"$numberInt":"1"}},{"name":"notepad","tags":["office","writing","school"],"price":{"$numberDecimal":"34.43"},"quantity":{"$numberInt":"3"}},{"name":"notepad","tags":["office","writing","school"],"price":{"$numberDecimal":"24.11"},"quantity":{"$numberInt":"1"}}],"storeLocation":"London","customer":{"gender":"F","age":{"$numberInt":"49"},"email":"merto@betosiv.pm","satisfaction":{"$numberInt":"3"}},"couponUsed":false,"purchaseMethod":"In store"},
-{"_id":{"$oid":"5bd761dcae323e45a93ccfee"},"saleDate":{"$date":{"$numberLong":"1415672031893"}},"items":[{"name":"laptop","tags":["electronics","school","office"],"price":{"$numberDecimal":"604.12"},"quantity":{"$numberInt":"4"}},{"name":"binder","tags":["school","general","organization"],"price":{"$numberDecimal":"11.05"},"quantity":{"$numberInt":"7"}},{"name":"binder","tags":["school","general","organization"],"price":{"$numberDecimal":"20.94"},"quantity":{"$numberInt":"5"}},{"name":"backpack","tags":["school","travel","kids"],"price":{"$numberDecimal":"61.16"},"quantity":{"$numberInt":"5"}},{"name":"notepad","tags":["office","writing","school"],"price":{"$numberDecimal":"29.81"},"quantity":{"$numberInt":"3"}},{"name":"printer paper","tags":["office","stationary"],"price":{"$numberDecimal":"31.19"},"quantity":{"$numberInt":"5"}},{"name":"pens","tags":["writing","office","school","stationary"],"price":{"$numberDecimal":"47.12"},"quantity":{"$numberInt":"1"}},{"name":"notepad","tags":["office","writing","school"],"price":{"$numberDecimal":"36.71"},"quantity":{"$numberInt":"2"}},{"name":"pens","tags":["writing","office","school","stationary"],"price":{"$numberDecimal":"69.28"},"quantity":{"$numberInt":"3"}},{"name":"notepad","tags":["office","writing","school"],"price":{"$numberDecimal":"14.05"},"quantity":{"$numberInt":"1"}}],"storeLocation":"London","customer":{"gender":"F","age":{"$numberInt":"40"},"email":"pan@cak.zm","satisfaction":{"$numberInt":"5"}},"couponUsed":false,"purchaseMethod":"In store"}]
-const page = 1;
-const perPage = 10;
+let saleData = [];
+let page = 500;
+let perPage = 10;
+let lastPage = false;
 
-const saleDetailData = {"_id":{"$oid":"5bd761dcae323e45a93ccfe9"},"saleDate":{"$date":{"$numberLong":"1440496862918"}},"items":[{"name":"envelopes","tags":["stationary","office","general"],"price":{"$numberDecimal":"8.05"},"quantity":{"$numberInt":"10"}},{"name":"binder","tags":["school","general","organization"],"price":{"$numberDecimal":"28.31"},"quantity":{"$numberInt":"9"}},{"name":"notepad","tags":["office","writing","school"],"price":{"$numberDecimal":"20.95"},"quantity":{"$numberInt":"3"}},{"name":"laptop","tags":["electronics","school","office"],"price":{"$numberDecimal":"866.5"},"quantity":{"$numberInt":"4"}},{"name":"notepad","tags":["office","writing","school"],"price":{"$numberDecimal":"33.09"},"quantity":{"$numberInt":"4"}},{"name":"printer paper","tags":["office","stationary"],"price":{"$numberDecimal":"37.55"},"quantity":{"$numberInt":"1"}},{"name":"backpack","tags":["school","travel","kids"],"price":{"$numberDecimal":"83.28"},"quantity":{"$numberInt":"2"}},{"name":"pens","tags":["writing","office","school","stationary"],"price":{"$numberDecimal":"42.9"},"quantity":{"$numberInt":"4"}},{"name":"envelopes","tags":["stationary","office","general"],"price":{"$numberDecimal":"16.68"},"quantity":{"$numberInt":"2"}}],"storeLocation":"Seattle","customer":{"gender":"M","age":{"$numberInt":"50"},"email":"keecade@hem.uy","satisfaction":{"$numberInt":"5"}},"couponUsed":false,"purchaseMethod":"Phone"};
 const saleTableTemplate = _.template(`
-    <% _.forEach(data, function(current){
-        let saleDate = moment(current.saleDate) 
-        console.log(current._id)
-    %>
-        <tr data-id="<%- current._id.$oid %>">
+    <% _.forEach(data, function(current){%>
+        <tr data-id="<%- current._id %>">
          <td><%- current.customer.email %></td>
          <td><%- current.storeLocation %></td>
          <td><%- current.items.length %></td>
-         <td><%- saleDate.format('LLLL') %></td>
+         <td><%- moment(current.saleDate).format('LLLL') %></td>
         </tr>
     <% }) %>
 `);
@@ -22,10 +17,10 @@ const saleTableTemplate = _.template(`
 const saleModelBodyTemplate = _.template(`
         <h4>Customer</h4>
         <strong>email: </strong><%- data.customer.email %><br>
-        <strong>age: </strong><%- data.customer.age.$numberInt %><br>
-        <strong>satisfaction: </strong> <%- data.customer.satisfaction.$numberInt %> / 5 <br>
+        <strong>age: </strong><%- data.customer.age %><br>
+        <strong>satisfaction: </strong> <%- data.customer.satisfaction %> / 5 <br>
         <br>
-        <h4>Items: Do this later</h4>
+        <h4>Items: $<%- data.totalPrice.toFixed(2) %></h4>
         <table class="table">
         <thead>
             <tr>
@@ -38,8 +33,8 @@ const saleModelBodyTemplate = _.template(`
             <% _.forEach(data.items,function(current){%>
                 <tr>
                     <td> <%- current.name%> </td>
-                    <td> <%- current.quantity.$numberInt%> </td>
-                    <td> <%- current.price.$numberDecimal%> </td>
+                    <td> <%- current.quantity%> </td>
+                    <td> $<%- current.price%> </td>
                 </tr>
             <% }) %>
         </tbody>
@@ -47,13 +42,64 @@ const saleModelBodyTemplate = _.template(`
 
 `);
 
+const loadSaleData = () => {
+    fetch(`http://tai-web422-a1.herokuapp.com/api/sales/?page=${page}&perPage=${perPage}`)
+        .then(response => response.json())
+        .then(json => {
+            saleData = json;
+            if (saleData.length < perPage) {
+                lastPage = true;
+            } else {
+                lastPage = false;
+            }
+            $(".current-page").attr("value", page);
+            $(".current-page").html(page);
+            $(".sale-table tbody").html(saleTableTemplate({ 'data': saleData }));
+        })
+}
+
 $(function () {
-    $(".sale-table tbody").html(saleTableTemplate({'data' : saleData}));
-    $(".sale-table tbody").on("click","tr", function(e){
-        $(".modal-body").html(saleModelBodyTemplate({'data' : saleDetailData}))
+    //populate sale table
+    loadSaleData();
+    //set event listener on sale-table body
+    $(".sale-table tbody").on("click", "tr", function (e) {
+        let selectedSaleID = $(this).attr("data-id");
+        let saleDetailData = _.find(saleData, function (thisSale) {
+            return thisSale._id == selectedSaleID;
+        });
+        let totalPrice = 0;
+        for (let i = 0; i < saleDetailData.items.length; i++) {
+            totalPrice += saleDetailData.items[i].price * saleDetailData.items[i].quantity;
+        }
+        saleDetailData.totalPrice = totalPrice;
+        $(".modal-body").html(saleModelBodyTemplate({ 'data': saleDetailData }))
+        $(".modal-title").html("Sales: " + saleDetailData._id);
         $("#sale-modal").modal({
             keyboard: false,
             backdrop: "static"
         })
     });
+    $(".previous-page").on("click", function (e) {
+        page = $(".current-page").attr("value");
+        if (page > 1) {
+            page--;
+            loadSaleData()
+            $(".current-page").attr("value", page);
+            $(".current-page").html(page);
+
+        } else {
+            alert("action not allowed");
+        }
+    });
+    $(".next-page").on("click", function (e) {
+        if (lastPage == false) {
+            page = $(".current-page").attr("value");
+            page++;
+            loadSaleData();
+            $(".current-page").attr("value", page);
+            $(".current-page").html(page);
+        }else{
+            alert("Last page");
+        }
+    })
 });
