@@ -33,7 +33,6 @@ function Sales(props) {
     function nextPage() {
         getData(currentPage + 1).then(result => {
             if (result) {
-                console.log(result);
                 setSales(result);
                 setCurrentPage(currentPage + 1);
             }
