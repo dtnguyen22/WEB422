@@ -3,7 +3,6 @@ import { withRouter } from 'react-router-dom';
 import { Table, Pagination } from 'react-bootstrap';
 
 
-
 function Sales(props) {
     const [sales, setSales] = useState([]);
     const [currentPage, setCurrentPage] = useState(1);
@@ -33,6 +32,7 @@ function Sales(props) {
     function nextPage() {
         getData(currentPage + 1).then(result => {
             if (result) {
+                console.log(result);
                 setSales(result);
                 setCurrentPage(currentPage + 1);
             }
@@ -61,7 +61,7 @@ function Sales(props) {
                         </thead>
                         <tbody>
                             {sales.map((sale) =>
-                                <tr key={sale._id} onClick={()=>{props.history.push(`/Sale/${sale._id}`)}}>
+                                <tr key={sale._id} onClick={() => { props.history.push(`/Sale/${sale._id}`) }}>
                                     <td>{sale.customer.email}</td>
                                     <td>{sale.storeLocation}</td>
                                     <td>{sale.items.length}</td>
@@ -79,7 +79,11 @@ function Sales(props) {
             </>
         );
     } else {
-        return null;
+        return (
+            <>
+            <p>loading please wait...</p>
+            </>
+        );
     }
 
 

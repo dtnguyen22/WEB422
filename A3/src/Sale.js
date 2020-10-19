@@ -23,6 +23,14 @@ function Sale(props) {
 
     }, [props.id]);
 
+    function calculateTotal(){
+        let sum = 0;
+        for(let i =0;i< sale.items.length; i++){
+            sum+=sale.items[i].price * sale.items[i].quantity;
+        } 
+        return sum;
+    }
+
     if (loading) {
         return null;
     } else {
@@ -32,11 +40,11 @@ function Sale(props) {
                     <h1>Sale: {sale._id}</h1>
                     <h2>Customer</h2>
                     <ListGroup>
-                        <ListGroupItem><strong>email: {sale.customer.email}</strong> </ListGroupItem>
-                        <ListGroupItem><strong>age: {sale.customer.age}</strong> </ListGroupItem>
-                        <ListGroupItem><strong>satisfaction: {sale.customer.satisfaction}</strong> </ListGroupItem>
+                        <ListGroupItem><strong>email:</strong> {sale.customer.email} </ListGroupItem>
+                        <ListGroupItem><strong>age:</strong> {sale.customer.age}</ListGroupItem>
+                        <ListGroupItem><strong>satisfaction:</strong> {sale.customer.satisfaction} </ListGroupItem>
                     </ListGroup>
-                    <h2> Items: </h2>
+            <h2> Items: ${calculateTotal().toFixed(2)}</h2>
                     <Table>
                         <thead>
                             <tr>
@@ -48,7 +56,7 @@ function Sale(props) {
                                 <tr key={index}>
                                     <td>{item.name}</td>
                                     <td>{item.quantity}</td>
-                                    <td>{item.price}</td>
+                                    <td>${item.price}</td>
                                 </tr>
                             )}
 
