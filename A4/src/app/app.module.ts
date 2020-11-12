@@ -15,6 +15,7 @@ import { CategoriesComponent } from './categories/categories.component';
 import { TagsComponent } from './tags/tags.component';
 import { SearchWidgetComponent } from './search-widget/search-widget.component';
 import { PostDataComponent } from './post-data/post-data.component';
+import { GalleryComponent } from './gallery/gallery.component';
 
 @NgModule({
   declarations: [
@@ -30,7 +31,8 @@ import { PostDataComponent } from './post-data/post-data.component';
     CategoriesComponent,
     TagsComponent,
     SearchWidgetComponent,
-    PostDataComponent
+    PostDataComponent,
+    GalleryComponent,
   ],
   imports: [
     BrowserModule,
