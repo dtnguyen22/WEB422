@@ -2,6 +2,7 @@
 {
   "compileOnSave": false,
   "compilerOptions": {
+    //json file handle
     "resolveJsonModule": true,
     "esModuleInterop": true,
     "baseUrl": "./",
