@@ -16,6 +16,8 @@ import { TagsComponent } from './tags/tags.component';
 import { SearchWidgetComponent } from './search-widget/search-widget.component';
 import { PostDataComponent } from './post-data/post-data.component';
 import { GalleryComponent } from './gallery/gallery.component';
+import {HttpClientModule} from '@angular/common/http';
+import { PagingComponent } from './paging/paging.component';
 
 @NgModule({
   declarations: [
@@ -33,10 +35,12 @@ import { GalleryComponent } from './gallery/gallery.component';
     SearchWidgetComponent,
     PostDataComponent,
     GalleryComponent,
+    PagingComponent,
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]

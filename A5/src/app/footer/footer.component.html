@@ -36,14 +36,17 @@
         </div>
       </div>
       <div class="col-md-4">
-        <div class="latest-posts"><a routerLink="#">
+        <div class="latest-posts">
           <!-- 3 posts -->
-            <div *ngFor="let aPost of blogPosts" class="post d-flex align-items-center">
+          <div class="post" *ngFor="let aPost of blogPosts">
+            <a [routerLink]="['/post', aPost._id]">
+            <div  class="post d-flex align-items-center">
               <div class="image"><img [src]="aPost.featuredImage" alt="..." class="img-fluid"></div>
-              <div class="title"><strong>{{aPost.title}}</strong><span
-                  class="date last-meta">{{aPost.postDate}}</span></div>
+              <div class="title"><strong>{{aPost.title}}</strong>
+                <span class="date last-meta">{{aPost.postDate | date:'mediumDate'}}</span></div>
             </div>
-          </a>
+          </a>    
+          </div>
         </div>
       </div>
     </div>

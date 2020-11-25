@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {BlogPost} from '../BlogPost';
 import blogData from '../blogData.json';
+import { PostService } from '../post.service';
 
 @Component({
   selector: 'app-footer',
@@ -9,12 +10,14 @@ import blogData from '../blogData.json';
 })
 export class FooterComponent implements OnInit {
   //we only need 3 posts for footer
-  blogPosts: Array<BlogPost> = blogData.slice(0,3);
-  
-  constructor() { }
+  blogPosts: Array<BlogPost>;
+  querySub: any;
+  constructor(private postService: PostService) { }
 
   ngOnInit(): void {
-    console.log(this.blogPosts);
+    this.querySub = this.postService.getPosts(1, null, null).subscribe(data=>{
+      this.blogPosts = data.slice(0,3);
+    });
   }
 
 }
