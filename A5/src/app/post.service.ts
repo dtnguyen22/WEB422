@@ -17,7 +17,7 @@ export class PostService {
   getPosts(page, tag, category): Observable<BlogPost[]> {
     let url = `https://tai-blog-api.herokuapp.com/api/posts?page=${page}&perPage=${perPage}`;
     if(tag != null){
-      url += `&tag=${tag.substring(1)}`;//remove #
+      url += `&tag=${tag}`;//remove #
     }
     if(category != null){
       url += `&category=${category}`;

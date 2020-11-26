@@ -3,8 +3,8 @@
         <h3 class="h6">Tags</h3>
     </header>
     <ul class="list-inline">
-        <li *ngFor="let tag of tags" class="list-inline-item">
-            <a [routerLink]="['/blog']" [queryParams]="{tag: tag.substring(1)}" class="tag">{{tag}}</a>
+        <li *ngFor="let atag of tags" class="list-inline-item">
+            <a [routerLink]="['/blog']" [queryParams]="{tag: atag.substring(1)}" class="tag">{{atag}}</a>
         </li>
     </ul>
 </div>

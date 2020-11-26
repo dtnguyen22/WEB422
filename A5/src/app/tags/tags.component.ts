@@ -7,7 +7,7 @@ import { PostService } from '../post.service';
   styleUrls: ['./tags.component.css']
 })
 export class TagsComponent implements OnInit {
-  tags: Array<string>;
+  tags: Array<any>;
   querySub: any;
   constructor(private postService: PostService) { }
 

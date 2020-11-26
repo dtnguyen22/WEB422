@@ -15,12 +15,10 @@ export class PagingComponent implements OnInit {
 
   previousBtnClicked(){
     if(this.page > 1){
-      console.log("emit -" + this.page+ "-1");
       this.newPage.emit(this.page - 1);
     }
   }
   nextBtnClicked(){
-    console.log("emit +" + this.page + "+1")
     this.newPage.emit(this.page + 1);
   }
 }
