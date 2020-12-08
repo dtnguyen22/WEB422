@@ -1,4 +1,5 @@
-<div class="post-single">
+<div *ngIf="!post">Loading please wait ...</div>
+<div *ngIf="post" class="post-single">
     <div class="post-thumbnail"><img [src]="post.featuredImage" alt="..." class="img-fluid"></div>
     <div class="post-details">
         <div class="post-meta d-flex justify-content-between">
@@ -30,7 +31,7 @@
                     <div class="user d-flex align-items-center">
                         <div class="image"><img src="/assets/img/user.svg" alt="..." class="img-fluid rounded-circle">
                         </div>
-                        <div class="title"><strong>{{aComment.title}}</strong><span
+                        <div class="title"><strong>{{aComment.author}}</strong><span
                                 class="date">{{aComment.date | date:'mediumDate'}}</span></div>
                     </div>
                 </div>
@@ -42,13 +43,13 @@
             <header>
                 <h3 class="h6">Leave a reply</h3>
             </header>
-            <form action="#" class="commenting-form">
+            <form #f='ngForm' (ngSubmit)="submitComment(f)" class="commenting-form">
                 <div class="row">
                     <div class="form-group col-md-12">
-                        <input type="text" name="username" id="username" placeholder="Name" class="form-control">
+                        <input type="text" name="username" id="username" [(ngModel)]="commentName" placeholder="Name" class="form-control" required>
                     </div>
                     <div class="form-group col-md-12">
-                        <textarea name="usercomment" id="usercomment" placeholder="Type your comment"
+                        <textarea name="usercomment" id="usercomment" [(ngModel)]="commentText" placeholder="Type your comment"
                             class="form-control"></textarea>
                     </div>
                     <div class="form-group col-md-12">

@@ -18,7 +18,10 @@ import { PostDataComponent } from './post-data/post-data.component';
 import { GalleryComponent } from './gallery/gallery.component';
 import {HttpClientModule} from '@angular/common/http';
 import { PagingComponent } from './paging/paging.component';
-
+import {FormsModule} from '@angular/forms';
+import { PostsTableComponent } from './posts-table/posts-table.component';
+import { EditPostComponent } from './edit-post/edit-post.component';
+import {NewPostComponent} from './new-post/new-post.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -36,11 +39,15 @@ import { PagingComponent } from './paging/paging.component';
     PostDataComponent,
     GalleryComponent,
     PagingComponent,
+    PostsTableComponent,
+    EditPostComponent,
+    NewPostComponent,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
-    HttpClientModule
+    HttpClientModule,
+    FormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

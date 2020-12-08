@@ -1,4 +1,5 @@
 import { Component, OnInit, Input, OnDestroy } from '@angular/core';
+import { NgForm } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import {BlogPost} from '../BlogPost';
 import { PostService } from '../post.service';
@@ -11,13 +12,27 @@ export class PostDataComponent implements OnInit, OnDestroy {
   post: BlogPost;
   querySub: any;
   routeSub: any;
+  updateSub: any;
+  //
+  commentName: string;
+  commentText: string;
   constructor(private postService: PostService, private route: ActivatedRoute) { }
 
+  submitComment(f: NgForm){
+    this.post.comments.push({
+      author: this.commentName,
+      comment: this.commentText,
+      date: new Date().toLocaleDateString()
+    })
+    this.updateSub = this.postService.updatePostById(this.post._id, this.post).subscribe(data=>{
+      this.commentName = "";
+      this.commentText = "";
+    });
+  }
 
   ngOnInit(): void {
     this.routeSub = this.route.params.subscribe(params=>{
       this.querySub = this.postService.getPostbyId(params['id']).subscribe(data=>{
-        console.log(data);
         this.post = data;
       });
     });
